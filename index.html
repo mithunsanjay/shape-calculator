@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Shape Calculator</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #051ead, #d510d5);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 100px;
+      
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      color: #333;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 115px;
+      width: 100%;
+      max-width: 1300px;
+    }
+
+    .card {
+      background: rgb(218, 217, 217);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: #2d2d2d;
+    }
+
+    .card label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 500;
+    }
+
+    .card input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .card button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 12px;
+      background: linear-gradient(135deg, #4CAF50, #45A049);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .card button:hover {
+      background: linear-gradient(135deg, #43a047, #388e3c);
+    }
+
+    .card p {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <h1> Shape Calculator</h1>
+  <div class="container">
+
+    <!-- Sphere -->
+    <div class="card">
+      <h2>Sphere</h2>
+      <label>Radius (r):</label>
+      <input type="number" id="sphere-radius" />
+      <button onclick="calculateSphere()">Calculate</button>
+      <p id="sphere-output"></p>
+    </div>
+
+    <!-- Cylinder -->
+    <div class="card">
+      <h2>Cylinder</h2>
+      <label>Radius (r):</label>
+      <input type="number" id="cylinder-radius" />
+      <label>Height (h):</label>
+      <input type="number" id="cylinder-height" />
+      <button onclick="calculateCylinder()">Calculate</button>
+      <p id="cylinder-output"></p>
+    </div>
+
+    <!-- Cone -->
+    <div class="card">
+      <h2>Cone</h2>
+      <label>Radius (r):</label>
+      <input type="number" id="cone-radius" />
+      <label>Height (h):</label>
+      <input type="number" id="cone-height" />
+      <label>Slant Height (s):</label>
+      <input type="number" id="cone-slant" />
+      <button onclick="calculateCone()">Calculate</button>
+      <p id="cone-output"></p>
+    </div>
+
+    <!-- Rectangular Prism -->
+    <div class="card">
+      <h2>Rectangular Prism</h2>
+      <label>Length (l):</label>
+      <input type="number" id="rect-length" />
+      <label>Width (w):</label>
+      <input type="number" id="rect-width" />
+      <label>Height (h):</label>
+      <input type="number" id="rect-height" />
+      <button onclick="calculateRectPrism()">Calculate</button>
+      <p id="rect-output"></p>
+    </div>
+
+    <!-- Triangular Prism -->
+    <div class="card">
+      <h2>Triangular Prism</h2>
+      <label>Base (b):</label>
+      <input type="number" id="tri-base" />
+      <label>Height (h):</label>
+      <input type="number" id="tri-height" />
+      <label>Length (l):</label>
+      <input type="number" id="tri-length" />
+      <label>Side (s):</label>
+      <input type="number" id="tri-side" />
+      <button onclick="calculateTriPrism()">Calculate</button>
+      <p id="tri-output"></p>
+    </div>
+
+    <!-- Square (New) -->
+   <!-- Square -->
+<div class="card">
+  <h2>Square</h2>
+  <label>Length:</label>
+  <input type="number" id="square-length" />
+  <label>Width:</label>
+  <input type="number" id="square-width" />
+  <button onclick="calculateSquare()">Calculate</button>
+  <p id="square-output"></p>
+</div>
+
+
+  </div>
+
+  <script>
+    function calculateSphere() {
+      const r = parseFloat(document.getElementById("sphere-radius").value);
+      if (!r) return;
+      const sa = 4 * Math.PI * r ** 2;
+      const v = (4 / 3) * Math.PI * r ** 3;
+      document.getElementById("sphere-output").innerText = `SA: ${sa.toFixed(2)}, V: ${v.toFixed(2)}`;
+    }
+
+    function calculateCylinder() {
+      const r = parseFloat(document.getElementById("cylinder-radius").value);
+      const h = parseFloat(document.getElementById("cylinder-height").value);
+      if (!r || !h) return;
+      const sa = 2 * Math.PI * r ** 2 + 2 * Math.PI * r * h;
+      const v = Math.PI * r ** 2 * h;
+      document.getElementById("cylinder-output").innerText = `SA: ${sa.toFixed(2)}, V: ${v.toFixed(2)}`;
+    }
+
+    function calculateCone() {
+      const r = parseFloat(document.getElementById("cone-radius").value);
+      const h = parseFloat(document.getElementById("cone-height").value);
+      const s = parseFloat(document.getElementById("cone-slant").value);
+      if (!r || !h || !s) return;
+      const sa = Math.PI * r * s + Math.PI * r ** 2;
+      const v = (1 / 3) * Math.PI * r ** 2 * h;
+      document.getElementById("cone-output").innerText = `SA: ${sa.toFixed(2)}, V: ${v.toFixed(2)}`;
+    }
+
+    function calculateRectPrism() {
+      const l = parseFloat(document.getElementById("rect-length").value);
+      const w = parseFloat(document.getElementById("rect-width").value);
+      const h = parseFloat(document.getElementById("rect-height").value);
+      if (!l || !w || !h) return;
+      const sa = 2 * (l * w + l * h + w * h);
+      const v = l * w * h;
+      document.getElementById("rect-output").innerText = `SA: ${sa.toFixed(2)}, V: ${v.toFixed(2)}`;
+    }
+
+    function calculateTriPrism() {
+      const b = parseFloat(document.getElementById("tri-base").value);
+      const h = parseFloat(document.getElementById("tri-height").value);
+      const l = parseFloat(document.getElementById("tri-length").value);
+      const s = parseFloat(document.getElementById("tri-side").value);
+      if (!b || !h || !l || !s) return;
+      const sa = b * h + 2 * l * s + l * b;
+      const v = 0.5 * b * h * l;
+      document.getElementById("tri-output").innerText = `SA: ${sa.toFixed(2)}, V: ${v.toFixed(2)}`;
+    }
+function calculateSquare() {
+  const l = parseFloat(document.getElementById("square-length").value);
+  const w = parseFloat(document.getElementById("square-width").value);
+  const output = document.getElementById("square-output");
+
+  if (!l || !w) {
+    output.innerText = "Please enter both values.";
+    return;
+  }
+
+  if (l !== w) {
+    output.innerText = "This is not a square (length ≠ width).";
+    return;
+  }
+
+  const area = l * w;
+  const perimeter = 4 * l;
+  output.innerText = `Area: ${area.toFixed(2)}, Perimeter: ${perimeter.toFixed(2)}`;
+}
+
+  </script>
+</body>
+</html>
